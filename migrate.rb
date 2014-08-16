@@ -16,10 +16,9 @@ basecamp = Logan::Client.new(ENV['BASECAMP_ID'], {:username => ENV['BASECAMP_USE
 basecamp_project = basecamp.projects.find { |p| puts p.inspect; p.id == ENV['BASECAMP_PROJECT_ID'].to_i }
 
 basecamp_project.todolists.each do |list|
-  list_name = list.name
   list.remaining_todos.each do |todo|
     basecamp_url = "https://basecamp.com/#{ENV['BASECAMP_ID']}/projects/#{ENV['BASECAMP_PROJECT_ID']}/todos/#{todo.id}"
-    issue = Octokit.create_issue(REPO, todo.content, "Imported from Basecamp: #{basecamp_url}", :labels => "#{list_name},todo")
+    issue = Octokit.create_issue(REPO, todo.content, "Imported from Basecamp: #{basecamp_url}", :labels => "#{list.name},todo")
 
     todo.comments.each do |comment|
       Octokit.add_comment(REPO, issue.number, comment.content)
