@@ -13,7 +13,7 @@ end
 REPO = ENV['GITHUB_REPO']
 
 basecamp = Logan::Client.new(ENV['BASECAMP_ID'], {:username => ENV['BASECAMP_USERNAME'], :password => ENV['BASECAMP_PASSWORD']}, "Migration")
-basecamp_project = basecamp.projects.find { |p| puts p.inspect; p.id == ENV['BASECAMP_PROJECT_ID'].to_i }
+basecamp_project = basecamp.projects.find { |p| p.id == ENV['BASECAMP_PROJECT_ID'].to_i }
 
 basecamp_project.todolists.each do |list|
   list.remaining_todos.each do |todo|
