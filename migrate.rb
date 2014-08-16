@@ -16,7 +16,6 @@ basecamp = Logan::Client.new(ENV['BASECAMP_ID'], {:username => ENV['BASECAMP_USE
 basecamp_project = basecamp.projects.find { |p| puts p.inspect; p.id == ENV['BASECAMP_PROJECT_ID'].to_i }
 
 basecamp_project.todolists.each do |list|
-
   list_name = list.name
   list.remaining_todos.each do |todo|
     basecamp_url = "https://basecamp.com/#{ENV['BASECAMP_ID']}/projects/#{ENV['BASECAMP_PROJECT_ID']}/todos/#{todo.id}"
@@ -26,5 +25,4 @@ basecamp_project.todolists.each do |list|
       Octokit.add_comment(REPO, issue.number, comment.content)
     end
   end
-
 end
